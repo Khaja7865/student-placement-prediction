@@ -1,24 +1,18 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 import joblib
 import pandas as pd
 
 app = FastAPI(title="Student Placement Prediction")
 
-# Load model
+# Load trained model
 model = joblib.load("model/placement_prediction_model.pkl")
-
-# Templates folder
-templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/", response_class=HTMLResponse)
-def home(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="index.html"
-    )
+def home():
+    with open("templates/index.html", "r", encoding="utf-8") as file:
+        return file.read()
 
 
 @app.post("/predict")
@@ -29,11 +23,7 @@ def predict_student(data: dict):
     prediction = model.predict(student)[0]
 
     probability = model.predict_proba(student)
-
-    confidence = round(
-        float(probability.max() * 100),
-        2
-    )
+    confidence = round(float(probability.max() * 100), 2)
 
     return {
         "prediction": prediction,
