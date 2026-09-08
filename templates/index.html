@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Placement Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Placement Prediction</h1>
+
+    <form id="predictionForm">
+
+        <div class="form-grid">
+
+            <div>
+                <label>Age</label>
+                <input type="number" id="age" value="21" required>
+            </div>
+
+            <div>
+                <label>Gender</label>
+                <select id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+
+            <div>
+                <label>CGPA</label>
+                <input type="number" step="0.01" id="cgpa" value="8.5" required>
+            </div>
+
+            <div>
+                <label>Branch</label>
+                <input type="text" id="branch" value="CSE" required>
+            </div>
+
+            <div>
+                <label>College Tier</label>
+                <select id="college_tier">
+                    <option>Tier 1</option>
+                    <option>Tier 2</option>
+                    <option>Tier 3</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Internships Count</label>
+                <input type="number" id="internships_count" value="2">
+            </div>
+
+            <div>
+                <label>Projects Count</label>
+                <input type="number" id="projects_count" value="4">
+            </div>
+
+            <div>
+                <label>Certifications Count</label>
+                <input type="number" id="certifications_count" value="5">
+            </div>
+
+            <div>
+                <label>Coding Skill Score</label>
+                <input type="number" id="coding_skill_score" value="85">
+            </div>
+
+            <div>
+                <label>Aptitude Score</label>
+                <input type="number" id="aptitude_score" value="82">
+            </div>
+
+            <div>
+                <label>Communication Skill Score</label>
+                <input type="number" id="communication_skill_score" value="80">
+            </div>
+
+            <div>
+                <label>Logical Reasoning Score</label>
+                <input type="number" id="logical_reasoning_score" value="84">
+            </div>
+
+            <div>
+                <label>Hackathons Participated</label>
+                <input type="number" id="hackathons_participated" value="2">
+            </div>
+
+            <div>
+                <label>GitHub Repositories</label>
+                <input type="number" id="github_repos" value="8">
+            </div>
+
+            <div>
+                <label>LinkedIn Connections</label>
+                <input type="number" id="linkedin_connections" value="500">
+            </div>
+
+            <div>
+                <label>Mock Interview Score</label>
+                <input type="number" id="mock_interview_score" value="85">
+            </div>
+
+            <div>
+                <label>Attendance Percentage</label>
+                <input type="number" id="attendance_percentage" value="90">
+            </div>
+
+            <div>
+                <label>Backlogs</label>
+                <input type="number" id="backlogs" value="0">
+            </div>
+
+            <div>
+                <label>Extracurricular Score</label>
+                <input type="number" id="extracurricular_score" value="75">
+            </div>
+
+            <div>
+                <label>Leadership Score</label>
+                <input type="number" id="leadership_score" value="70">
+            </div>
+
+            <div>
+                <label>Volunteer Experience</label>
+                <select id="volunteer_experience">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Sleep Hours</label>
+                <input type="number" step="0.1" id="sleep_hours" value="7">
+            </div>
+
+            <div>
+                <label>Study Hours Per Day</label>
+                <input type="number" step="0.1" id="study_hours_per_day" value="4">
+            </div>
+
+        </div>
+
+        <button type="submit">Predict Placement</button>
+
+    </form>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const data = {
+        age: Number(document.getElementById("age").value),
+        gender: document.getElementById("gender").value,
+        cgpa: Number(document.getElementById("cgpa").value),
+        branch: document.getElementById("branch").value,
+        college_tier: document.getElementById("college_tier").value,
+        internships_count: Number(document.getElementById("internships_count").value),
+        projects_count: Number(document.getElementById("projects_count").value),
+        certifications_count: Number(document.getElementById("certifications_count").value),
+        coding_skill_score: Number(document.getElementById("coding_skill_score").value),
+        aptitude_score: Number(document.getElementById("aptitude_score").value),
+        communication_skill_score: Number(document.getElementById("communication_skill_score").value),
+        logical_reasoning_score: Number(document.getElementById("logical_reasoning_score").value),
+        hackathons_participated: Number(document.getElementById("hackathons_participated").value),
+        github_repos: Number(document.getElementById("github_repos").value),
+        linkedin_connections: Number(document.getElementById("linkedin_connections").value),
+        mock_interview_score: Number(document.getElementById("mock_interview_score").value),
+        attendance_percentage: Number(document.getElementById("attendance_percentage").value),
+        backlogs: Number(document.getElementById("backlogs").value),
+        extracurricular_score: Number(document.getElementById("extracurricular_score").value),
+        leadership_score: Number(document.getElementById("leadership_score").value),
+        volunteer_experience: document.getElementById("volunteer_experience").value,
+        sleep_hours: Number(document.getElementById("sleep_hours").value),
+        study_hours_per_day: Number(document.getElementById("study_hours_per_day").value)
+    };
+
+    const result = document.getElementById("result");
+
+    result.innerHTML = "Predicting...";
+
+    try {
+
+        const response = await fetch("/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const output = await response.json();
+
+        result.innerHTML =
+            "Prediction: " + output.prediction +
+            "<br>Confidence: " + output.confidence + "%";
+
+    } catch (error) {
+
+        result.innerHTML = "Error connecting to prediction API.";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
