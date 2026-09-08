@@ -6,16 +6,18 @@ import pandas as pd
 
 app = FastAPI(title="Student Placement Prediction")
 
+# Load model
 model = joblib.load("model/placement_prediction_model.pkl")
 
+# Templates folder
 templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse(
-        "index.html",
-        {"request": request}
+        request=request,
+        name="index.html"
     )
 
 
